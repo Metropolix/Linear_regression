@@ -5,9 +5,8 @@ def read_data(filename):
     try:
         with open(filename) as csvfile:
          reader = csv.DictReader(csvfile)
-         for row in reader:
-             print(row)
-        return(row)
+         array = [row for row in reader]
+        return(array)
         
     except:
         sys.exit("Error: can't read input data file")

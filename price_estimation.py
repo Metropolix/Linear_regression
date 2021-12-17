@@ -1,4 +1,4 @@
-from tools import read_data
+import tools
 import sys
 
 Theta0 = 0
@@ -21,11 +21,11 @@ if __name__ == "__main__":
         filename = sys.argv[1]
     else:
         filename = "data.csv"
-    data = read_data(filename)
-    theta_file = read_data("theta_file.csv")
+    data = tools.read_data(filename)
+    theta_file = tools.read_data("theta_file.csv")
     try:
-        Theta0 = float(theta_file['row1'])
-        Theta1 = float(theta_file['row2']) # TODO: Securisez le int
+        Theta0 = float(theta_file[0]['row1'])
+        Theta1 = float(theta_file[0]['row2']) # TODO: Securisez le int
     except:
         sys.exit("Error: Failed to Read theta file must be number")
     
