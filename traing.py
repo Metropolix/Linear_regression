@@ -1,4 +1,5 @@
 import tools 
+import matplotlib.pyplot as plt
 
 def hypothesis (theta_0,theta_1,X):
     return theta_1*X + theta_0
@@ -9,6 +10,16 @@ def cost_function(data,theta_0,theta_1):
     for i in range (m):
         summation += ((theta_1 * float(data[i]['km']) + theta_0) - float(data[i]['price']))**2
     return summation /(2*m)
+
+def show_cost_function(y, x):
+    plt.plot(x, y)
+    plt.xlabel('x - axis')
+    plt.ylabel('y - axis')
+    plt.title('My first graph!')
+    plt.show()
+
+
+
 
 def gradient_descent_v2(data, array_of_theta):
     t0_deriv = 0
@@ -56,12 +67,17 @@ def gradient_descent(data, array_of_theta):
     return (array_of_theta)
 
 def linear_regression(data, theta0, theta1):
-    number_of_iterations = 100
-
+    number_of_iterations = 10
+    array = []
+    list_of_x = list(range(0, number_of_iterations))
     array_of_theta = [theta0, theta1]
     for i in range(number_of_iterations):
         array_of_theta = gradient_descent_v2(data, array_of_theta)
         print(cost_function(data, array_of_theta[0], array_of_theta[1]))
+        array.append(cost_function(data, array_of_theta[0], array_of_theta[1]))
+    print(array, list_of_x)
+    show_cost_function(array, list_of_x)
+
   #  print(array_of_theta[0], array_of_theta[1])
 
 
