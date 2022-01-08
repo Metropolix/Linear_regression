@@ -30,6 +30,11 @@ def load_data_matrix_from_csv(filename):
     X = np.hstack((b,X)) # Add a first column (of 1) to X 
     return(X, y)
 
+def feature_scaling_with_mean_normalization(X):
+    ''' Feature scaling for large range of X using mean normalization'''
+    X = (X - np.mean(X)) / (np.max(X) - np.min(X))
+    return(X)
+
 def hypothesis(X, theta):
     predictions = np.dot(X, theta)
     return(predictions)
@@ -51,16 +56,16 @@ def cost_function(X, y, theta):
 
 if __name__ == "__main__":
     ''' Variable initialisation'''
-    X, y = load_data_matrix_from_csv('test_decrement.csv')
+    X, y = load_data_matrix_from_csv('data.csv')
+    X = feature_scaling_with_mean_normalization(X)
     theta = np.array([[0],[0]])
-    alpha = 0.01
+    alpha = 0.1
     m = y.size
-    num_iter = 3000
+    num_iter = 4000
     cost = 0
     cost_history = np.array([])
 
     for i in range(0, num_iter):
         theta = gradient_descent(X, y, theta, alpha, m)
         cost_history = np.append(cost_history, cost_function(X, y, theta))
-    
     plot_data(X, y, theta, cost)
