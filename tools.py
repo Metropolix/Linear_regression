@@ -1,27 +1,18 @@
 import csv
 import sys
+import numpy as np
+from numpy import genfromtxt
+import numpy as np
 
-def read_data(filename):
+def load_data_matrix_from_csv(filename):
+    '''Goal is to read data from csv and set correct matrix with first row as 1'''
     try:
-        with open(filename) as csvfile:
-         reader = csv.DictReader(csvfile)
-         array = [row for row in reader]
-        return(array)
-        
+        my_data = genfromtxt(filename, delimiter=',')
+        my_data = np.delete(my_data, (0), axis=0) # Remove first row (csv title row)
+        my_data = my_data[np.argsort(my_data[:, 0])] # Sort the matrix by first column (X)
+        X, y = np.split(my_data, 2, axis=1)
+        b = np.ones((y.size,1)) 
+        X = np.hstack((b,X)) # Add a first column (of 1) to X 
+        return(X, y)
     except:
-        sys.exit("Error: can't read input data file")
-
-def create_thetafile(header, array_of_theta):
-    with open('theta_file.csv', 'w', encoding='UTF8') as f:
-        writer = csv.writer(f)
-        
-        writer.writerow(header)
-        writer.writerow(array_of_theta)
-
-# header = ['row1', 'row2']
-# array_of_theta = ['0.123', '12.4']
-
-# create_thetafile(header, array_of_theta)
-# read_data("theta_file.csv")
-
-#read_data("data.csv")
+        sys.exit("Can't read and load datafile")

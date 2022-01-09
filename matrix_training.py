@@ -1,7 +1,6 @@
 import numpy as np
 from numpy import genfromtxt
 import matplotlib.pyplot as plt
-from tools import read_data
 
 def show_all_datas(X, y, theta, cost):
     print("X: ", X)
@@ -68,4 +67,5 @@ if __name__ == "__main__":
     for i in range(0, num_iter):
         theta = gradient_descent(X, y, theta, alpha, m)
         cost_history = np.append(cost_history, cost_function(X, y, theta))
+    np.savetxt("theta_file.csv", theta, delimiter=",")
     plot_data(X, y, theta, cost)
