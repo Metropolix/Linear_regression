@@ -33,7 +33,7 @@ When you have previoulsy launch training, you should have a theta_file.csv updat
 Now if you launch, price_estimation.py you should obtain a result
 
 
-# Input Behavior
+## Input Behavior
 
 If you enter too big or too small or negative value for km, you will obtain a strange price. It's normal, linear regression is based on a "ax +b" model which doesn't fit perfectly with the case of car price estimations.
 
