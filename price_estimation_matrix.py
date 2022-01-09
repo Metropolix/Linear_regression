@@ -25,10 +25,11 @@ def get_user_input(X, theta):
     return(user_input)
 
 if __name__ == "__main__":
+    ''' Variable initialization'''
     theta = genfromtxt('theta_file.csv', delimiter=',')
     theta = theta[newaxis].T
     X, y = tools.load_data_matrix_from_csv('data.csv')
     user_input = get_user_input(X, theta)
-    
+
     res = hypothesis(user_input, theta)
     print("Predicted price:", res)
