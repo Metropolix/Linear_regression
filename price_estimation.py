@@ -25,9 +25,12 @@ def get_user_input(X, theta):
 
 if __name__ == "__main__":
     ''' Variable initialization'''
-    theta = genfromtxt('theta_file.csv', delimiter=',')
+    try:
+        theta = genfromtxt('theta_file.csv', delimiter=',')
+    except:
+        sys.exit("Error: impossible to read theta csv file")
     theta = theta[newaxis].T
-    X, y = tools.load_data_matrix_from_csv('data.csv')
+    X, y = tools.load_data_matrix_from_csv('tests/data.csv')
     user_input = get_user_input(X, theta)
 
     res = hypothesis(user_input, theta)

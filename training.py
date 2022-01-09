@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import genfromtxt
 import matplotlib.pyplot as plt
+import sys
 
 def show_all_datas(X, y, theta, cost):
     print("X: ", X)
@@ -55,8 +56,11 @@ def cost_function(X, y, theta):
 
 if __name__ == "__main__":
     ''' Variable initialisation'''
-    X, y = load_data_matrix_from_csv('data.csv')
-    X = feature_scaling_with_mean_normalization(X)
+    try:
+        X, y = load_data_matrix_from_csv('tests/data.csv')
+        X = feature_scaling_with_mean_normalization(X)
+    except:
+        sys.exit('Error: Impossible to load data csv file')
     theta = np.array([[0],[0]])
     alpha = 0.1
     m = y.size
