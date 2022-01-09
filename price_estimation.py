@@ -1,7 +1,6 @@
 from matplotlib.pyplot import get
 from numpy import genfromtxt, newaxis
 import numpy as np
-from matrix_training import hypothesis
 import tools
 import sys
 
