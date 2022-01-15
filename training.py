@@ -12,12 +12,19 @@ def show_all_datas(X, y, theta, cost):
     print("--------")
     print("cost:", cost)
 
-def plot_data(X, y, theta, cost):
+def plot_data(X, y, theta, cost, cost_history, num_iter, initial_X):
     predictions = hypothesis(X, theta)
-    plt.scatter(X[:,1], y)
-    plt.plot(X[:,1], predictions, color='red')
-    plt.xlabel('X')
-    plt.ylabel('Y')
+    fig, ax = plt.subplots(2, 2)
+    fig.suptitle('Results of Training')
+    ax[0,0].set_title('Linear regression:')
+    ax[0,0].scatter(X[:,1], y)
+    ax[0,0].plot(X[:,1], predictions, color='red')
+    ax[0,1].set_title('Cost function:')
+    ax[0,1].scatter(range(0, num_iter), cost_history)
+    ax[1,0].set_title('Data repartition:')
+    hx, hy, _ = ax[1,0].hist(initial_X, bins=50,color="lightblue")
+    ax[1,0].grid()
+
     plt.show()
 
 def load_data_matrix_from_csv(filename):
@@ -58,6 +65,8 @@ if __name__ == "__main__":
     ''' Variable initialisation'''
     try:
         X, y = load_data_matrix_from_csv('tests/data.csv')
+        initial_X = X[:,1]
+        print(initial_X)
         X = feature_scaling_with_mean_normalization(X)
     except:
         sys.exit('Error: Impossible to load data csv file')
@@ -72,4 +81,5 @@ if __name__ == "__main__":
         theta = gradient_descent(X, y, theta, alpha, m)
         cost_history = np.append(cost_history, cost_function(X, y, theta))
     np.savetxt("theta_file.csv", theta, delimiter=",")
-    plot_data(X, y, theta, cost)
+    # print(X)
+    plot_data(X, y, theta, cost, cost_history, num_iter, initial_X)
