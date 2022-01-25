@@ -1,2 +1,2 @@
-DATASET_FILENAME = "tests/test_decrement.csv"
+DATASET_FILENAME = "tests/data.csv"
 THETA_FILENAME = "theta_file.csv"
