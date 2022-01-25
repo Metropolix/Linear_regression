@@ -4,6 +4,7 @@ from numpy import genfromtxt
 import matplotlib.pyplot as plt
 import sys
 import tools
+import config 
 
 def plot_data(X, y, theta, cost, cost_history, num_iter, initial_X):
     ''' Plot Linear Regression, Cost function and Data repartition'''
@@ -51,7 +52,7 @@ def cost_function(X, y, theta):
 if __name__ == "__main__":
     ''' Variable initialisation'''
     try:
-        X, y = tools.load_data_matrix_from_csv(sys.argv[1])
+        X, y = tools.load_data_matrix_from_csv(config.DATASET_FILENAME)
         initial_X = X[:,1]
         X = feature_scaling_with_mean_normalization(X)
     except:
@@ -59,14 +60,15 @@ if __name__ == "__main__":
     theta = np.array([[0],[0]])
     alpha = 0.1
     m = y.size
-    num_iter = 4000
+    num_iter = 2500
     cost = 0
     cost_history = np.array([])
 
     for i in range(0, num_iter):
         theta = gradient_descent(X, y, theta, alpha, m)
         cost_history = np.append(cost_history, cost_function(X, y, theta))
-
-    np.savetxt("theta_file.csv", theta, delimiter=",")
+        
+    print("Cost : ", cost_history[-1])
+    np.savetxt(config.THETA_FILENAME, theta, delimiter=",")
     print("\033[92mDone.\033[0m Please open 'theta_file.csv' to know the slope and the intercept")
     plot_data(X, y, theta, cost, cost_history, num_iter, initial_X)
